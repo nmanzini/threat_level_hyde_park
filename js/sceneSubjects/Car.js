@@ -24,27 +24,32 @@ function Car(scene, camera) {
 	
 	car.position.set(0, 0, 0);
 
-
-
-	document.addEventListener('keydown', (event) => {
-		const keyName = event.key;
-		// console.log(event);
-		if (keyName == 'a'){
+	var keyState = {};
+	window.addEventListener('keydown',function(e){
+		keyState[e.keyCode || e.which] = true;
+	},true);    
+	window.addEventListener('keyup',function(e){
+		keyState[e.keyCode || e.which] = false;
+	},true);
+	
+	function updateUserMovement()
+	{
+		if (keyState[37] || keyState[65]){	// 'a'
 			direction_v.applyAxisAngle( vertical_axis, angle );
 			car.rotation.y+= angle ;
 			camera.rotation.y+= angle ;
-
-		} else if (keyName == 'd'){
+		}    
+		if (keyState[39] || keyState[68]){	// 'd'
 			direction_v.applyAxisAngle( vertical_axis, -angle );
 			car.rotation.y-= angle ;
-			camera.rotation.y-= angle ;
-		}
-	});
-
+			camera.rotation.y-= angle ;		}
+	}
+	
 	scene.add(car);
 
 
 	this.update = function(time,camera) {
+		updateUserMovement();
 		car.position.add(direction_v);
 		camera.position.add(direction_v);
 	}
