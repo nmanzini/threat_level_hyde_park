@@ -58,12 +58,10 @@ function Car(scene, camera) {
 		if (keyState['left']){
 			direction_v.applyAxisAngle( vertical_axis, angle );
 			car.rotation.y+= angle ;
-			camera.rotation.y+= angle ;
 		}    
 		if (keyState['right']){
 			direction_v.applyAxisAngle( vertical_axis, -angle );
 			car.rotation.y-= angle ;
-			camera.rotation.y-= angle ;		
 		}
 	}
 	
