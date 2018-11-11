@@ -26,6 +26,8 @@ function Car(scene, camera) {
 
 	var keyState = {};
 
+	document.addEventListener('contextmenu', event => event.preventDefault());
+
 	window.addEventListener('touchstart', function(e) {
 		// this.console.log(e.touches[0].screenX);
 		if(e.touches[0].screenX < this.window.innerWidth/2)
