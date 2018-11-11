@@ -1,2 +1,2 @@
-# threat_level_hyde_park
+# Threat Level Hyde Park
 Three.js based car game
