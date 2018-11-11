@@ -25,8 +25,8 @@ function Car(scene, camera) {
 
 	function getKeyCode(key1,key2)
 	{
-		if(key1 == 'a' || key2 == 'a' || key1==37 || key2 == 37)	return 'left';
-		if(key1 == 'd' || key2 == 'd' || key1==39 || key2 == 39)	return 'left';
+		if(key1 == 65 || key2 == 65 || key1==37 || key2 == 37)	return 'left';
+		if(key1 == 68 || key2 == 68 || key1==39 || key2 == 39)	return 'right';
 	}
 
 	document.addEventListener('contextmenu', event => event.preventDefault());
@@ -46,6 +46,7 @@ function Car(scene, camera) {
 	},true);
 
 	window.addEventListener('keydown',function(e){
+		this.console.log(getKeyCode(e.keyCode, e.which));
 		keyState[getKeyCode(e.keyCode, e.which)] = true;
 	},true);    
 	window.addEventListener('keyup',function(e){
