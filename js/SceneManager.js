@@ -35,6 +35,21 @@ function SceneManager(canvas) {
             mesh.matrixAutoUpdate = false;
             scene.add( mesh );
         }
+        
+        let limit = 300;
+        for ( var i = -1*(limit/2); i < limit/2; i ++ ) {
+            for(let j=0; j<4; j++)
+            {
+                var mesh1 = new THREE.Mesh( geometry, material );
+
+                mesh1.position.x =  Math.pow(-1,parseInt((j)/2)) * Math.pow(limit/2, (j+1)%2) * Math.pow(i,j%2);
+                mesh1.position.y = 0;
+                mesh1.position.z = Math.pow(-1,parseInt((j)/2)) * Math.pow(limit/2, (j)%2) * Math.pow(i,(j+1)%2);
+                mesh1.updateMatrix();
+                mesh1.matrixAutoUpdate = false;
+                scene.add( mesh1 );    
+            }
+        }
 
         return scene;
     }
