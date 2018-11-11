@@ -24,7 +24,7 @@ function Car(scene, camera) {
 	
 	car.position.set(0, 0, 0);
 
-	var keyState = {};
+	let keyState = {};
 	window.addEventListener('keydown',function(e){
 		keyState[e.keyCode || e.which] = true;
 	},true);    
