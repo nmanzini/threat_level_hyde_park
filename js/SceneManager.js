@@ -56,6 +56,21 @@ function SceneManager(canvas) {
                 console.log( 'An error happened' );
             }
         );
+        
+        let limit = 300;
+        for ( var i = -1*(limit/2); i < limit/2; i ++ ) {
+            for(let j=0; j<4; j++)
+            {
+                var mesh1 = new THREE.Mesh( geometry, material );
+
+                mesh1.position.x =  Math.pow(-1,parseInt((j)/2)) * Math.pow(limit/2, (j+1)%2) * Math.pow(i,j%2);
+                mesh1.position.y = 0;
+                mesh1.position.z = Math.pow(-1,parseInt((j)/2)) * Math.pow(limit/2, (j)%2) * Math.pow(i,(j+1)%2);
+                mesh1.updateMatrix();
+                mesh1.matrixAutoUpdate = false;
+                scene.add( mesh1 );    
+            }
+        }
 
         return scene;
     }
@@ -78,8 +93,8 @@ function SceneManager(canvas) {
         const nearPlane = 1;
         const farPlane = 100; 
         const camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
-        camera.position.set(0,4,4);
-        camera.rotation.set(0,-Math.PI/2,0)
+        camera.position.set(0,25,25);
+        camera.rotation.set(-Math.PI/4,0,0)
 
         return camera;
     }

@@ -1,3 +1,4 @@
+
 function Car(scene, camera) {
 	
 	// const radius = 2;
@@ -7,19 +8,16 @@ function Car(scene, camera) {
 	// 	);
 
 	var geometry = new THREE.BoxGeometry( 3, 1, 2 );
+	// var geometry = new THREE.TorusKnotGeometry(1,3,5,16);
 	var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-	var car = new THREE.Mesh( geometry, material );
+	// var car = new THREE.Mesh( geometry, material );
+	// let direction_v = new THREE.Vector3(0.2,0,0);
+	var car = new CarModel(geometry,material,Acceleration=0.005,PeakVelocity=0.35,TurningAcceleration=Math.PI/75,Damage=null,TurningPeakVelocity=Math.PI/50);
 
+	// var vertical_axis = new THREE.Vector3( 0, 1, 0 );
+	// var angle = Math.PI / 30;
 
-
-	let direction_v = new THREE.Vector3(0.2,0,0);
-
-
-	var vertical_axis = new THREE.Vector3( 0, 1, 0 );
-	var angle = Math.PI / 30;
-
-	
-	car.position.set(0, 0, 0);
+	car.Car.position.set(0, 0, 0);
 
 	var keyState = {};
 
@@ -46,7 +44,7 @@ function Car(scene, camera) {
 	},true);
 
 	window.addEventListener('keydown',function(e){
-		this.console.log(getKeyCode(e.keyCode, e.which));
+		// this.console.log(getKeyCode(e.keyCode, e.which));
 		keyState[getKeyCode(e.keyCode, e.which)] = true;
 	},true);    
 	window.addEventListener('keyup',function(e){
@@ -56,23 +54,24 @@ function Car(scene, camera) {
 	function updateUserMovement()
 	{
 		if (keyState['left']){
-			direction_v.applyAxisAngle( vertical_axis, angle );
-			car.rotation.y+= angle ;
-			camera.rotation.y+= angle ;
+			car.turn('left');
 		}    
-		if (keyState['right']){
-			direction_v.applyAxisAngle( vertical_axis, -angle );
-			car.rotation.y-= angle ;
-			camera.rotation.y-= angle ;		
+		else if (keyState['right']){
+			car.turn('right');
+		}
+		else
+		{
+			car.decelerateTurnAngle();
+			car.accelerate();
 		}
 	}
 	
-	scene.add(car);
+	scene.add(car.Car);
 
 
 	this.update = function(time,camera) {
 		updateUserMovement();
-		car.position.add(direction_v);
-		camera.position.add(direction_v);
+		car.updatePos();
+		camera.position.add(car.Velocity);
 	}
 }
