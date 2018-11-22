@@ -12,7 +12,7 @@ function Car(scene, camera) {
 	var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 	// var car = new THREE.Mesh( geometry, material );
 	// let direction_v = new THREE.Vector3(0.2,0,0);
-	var car = new CarModel(geometry,material,0.005,0.25,null,null,null);
+	var car = new CarModel(geometry,material,Acceleration=0.005,PeakVelocity=0.35,TurningAcceleration=Math.PI/75,Damage=null,TurningPeakVelocity=Math.PI/50);
 
 	// var vertical_axis = new THREE.Vector3( 0, 1, 0 );
 	// var angle = Math.PI / 30;
@@ -61,6 +61,7 @@ function Car(scene, camera) {
 		}
 		else
 		{
+			car.decelerateTurnAngle();
 			car.accelerate();
 		}
 	}
