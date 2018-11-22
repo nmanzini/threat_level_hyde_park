@@ -38,9 +38,16 @@ function SceneManager(canvas) {
                 // scene.add(tree01)
                 for ( var i = 0; i < 500; i ++ ) {
                     var mesh = tree01.clone ();
-                    mesh.position.x = Math.random() * 200 - 100;
+                    let posX, posZ;
+                    posX = Math.random() * 200 - 100;
+                    posZ = Math.random() * 200 - 100;
+
+                    // Make sure trees do not spawn at car spawn spot
+                    // Radius around car is currently 10 x 10
+                    while((Math.abs(posX = Math.random() * 200 - 100) < 10) && (Math.abs(posZ = Math.random() * 200 - 100) < 10));                    mesh.position.x = posX;
+
                     mesh.position.y = 0;
-                    mesh.position.z = Math.random() * 200 - 100;
+                    mesh.position.z = posZ;
                     mesh.updateMatrix();
                     mesh.matrixAutoUpdate = false;
                     scene.add( mesh );
