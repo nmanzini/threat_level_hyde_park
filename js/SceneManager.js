@@ -28,6 +28,7 @@ function SceneManager(canvas) {
             // resource URL
             'assets/gltf/tree01/tree01.gltf',
             // called when the resource is loaded
+            
             function ( gltf ) {
                 tree01 = gltf.scene.children[0]
                 tree01.scale.x = 0.01;
