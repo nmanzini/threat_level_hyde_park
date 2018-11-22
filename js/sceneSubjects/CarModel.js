@@ -1,16 +1,20 @@
 class CarModel{
     
-    constructor(Geometry,Material,Acceleration,PeakVelocity,TurningAcceleration,Damage,TurningPeakVelocity){
+    constructor(mesh,Acceleration,PeakVelocity,TurningAcceleration,Damage,TurningPeakVelocity){
         this.Acceleration = Acceleration;
         this.PeakVelocity = PeakVelocity;
         this.TurningPeakVelocity = TurningPeakVelocity;
         this.Damage = Damage;
         this.TurningAcceleration = TurningAcceleration;
         this.Velocity = new THREE.Vector3(0.01,0,0);
-        this.Car = new THREE.Mesh( Geometry, Material );
+        this.Car = mesh;
         this.VerticalAxis = new THREE.Vector3( 0, 1, 0 );
-	    this.Angle = 0;
+        this.Angle = 0;
+        this.Car.position.set(0, 0, 0);
+        
     }
+
+    
     
     accelerateTurnAngle()
     {

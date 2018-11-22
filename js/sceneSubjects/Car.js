@@ -1,5 +1,5 @@
 
-function Car(scene, camera) {
+function Car(scene, camera, mesh) {
 	
 	// const radius = 2;
 	// const car = new THREE.Mesh(
@@ -12,12 +12,13 @@ function Car(scene, camera) {
 	var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 	// var car = new THREE.Mesh( geometry, material );
 	// let direction_v = new THREE.Vector3(0.2,0,0);
-	var car = new CarModel(geometry,material,Acceleration=0.005,PeakVelocity=0.35,TurningAcceleration=Math.PI/75,Damage=null,TurningPeakVelocity=Math.PI/50);
+	var car = new CarModel(mesh,Acceleration=0.005,PeakVelocity=0.35,TurningAcceleration=Math.PI/75,Damage=null,TurningPeakVelocity=Math.PI/50);
+
+	
+
 
 	// var vertical_axis = new THREE.Vector3( 0, 1, 0 );
 	// var angle = Math.PI / 30;
-
-	car.Car.position.set(0, 0, 0);
 
 	var keyState = {};
 
