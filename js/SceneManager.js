@@ -16,6 +16,7 @@ function SceneManager(canvas) {
         const scene = new THREE.Scene();
         scene.background = new THREE.Color("#000");
 
+        // shows axes
         var axesHelper = new THREE.AxesHelper( 5 );
         scene.add( axesHelper );
     
@@ -23,18 +24,37 @@ function SceneManager(canvas) {
         scene.add( light );
 
         var loader = new THREE.GLTFLoader();
-        // cones stuff
-        var geometry = new THREE.CylinderBufferGeometry( 0, 1, 3, 4, 1 );
-        var material = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } );
-        for ( var i = 0; i < 500; i ++ ) {
-            var mesh = new THREE.Mesh( geometry, material );
-            mesh.position.x = Math.random() * 200 - 100;
-            mesh.position.y = 0;
-            mesh.position.z = Math.random() * 200 - 100;
-            mesh.updateMatrix();
-            mesh.matrixAutoUpdate = false;
-            scene.add( mesh );
-        }
+        loader.load(
+            // resource URL
+            'assets/gltf/tree01/tree01.gltf',
+            // called when the resource is loaded
+            function ( gltf ) {
+                tree01 = gltf.scene.children[0]
+                tree01.scale.x = 0.01;
+                tree01.scale.y = 0.01;
+                tree01.scale.z = 0.01;
+
+                // scene.add(tree01)
+                for ( var i = 0; i < 500; i ++ ) {
+                    var mesh = tree01.clone ();
+                    mesh.position.x = Math.random() * 200 - 100;
+                    mesh.position.y = 0;
+                    mesh.position.z = Math.random() * 200 - 100;
+                    mesh.updateMatrix();
+                    mesh.matrixAutoUpdate = false;
+                    scene.add( mesh );
+                }
+        
+            },
+            // called while loading is progressing
+            function ( xhr ) {
+                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+            },
+            // called when loading has errors
+            function ( error ) {
+                console.log( 'An error happened' );
+            }
+        );
 
         return scene;
     }
