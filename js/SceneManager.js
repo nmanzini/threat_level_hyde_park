@@ -10,7 +10,31 @@ function SceneManager(canvas) {
     const scene = buildScene();
     const renderer = buildRender(screenDimensions);
     const camera = buildCamera(screenDimensions);
-    const sceneSubjects = createSceneSubjects(scene,camera);
+    let sceneSubjects = [];
+    var loader = new THREE.GLTFLoader();
+    loader.load(
+		// resource URL
+		'assets/gltf/car01/1377 Car.gltf',
+		// called when the resource is loaded
+		
+		function ( gltf ) {
+            car = gltf.scene.children[0]
+            car.scale.x = 0.06
+            car.scale.y = 0.06
+            car.scale.z = 0.06
+
+            car.rotation.y = Math.PI/2
+            sceneSubjects = createSceneSubjects(scene,camera,car);
+		},
+		// called while loading is progressing
+		function ( xhr ) {
+			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		},
+		// called when loading has errors
+		function ( error ) {
+			console.log( 'An error happened' );
+		}
+	)
     
     function buildScene() {
         const scene = new THREE.Scene();
@@ -78,21 +102,6 @@ function SceneManager(canvas) {
             }
             );
             
-            // let limit = 300;
-            // for ( var i = -1*(limit/2); i < limit/2; i ++ ) {
-            //     for(let j=0; j<4; j++)
-            //     {
-            //         var mesh1 = new THREE.Mesh( geometry, material );
-            
-            //         mesh1.position.x =  Math.pow(-1,parseInt((j)/2)) * Math.pow(limit/2, (j+1)%2) * Math.pow(i,j%2);
-            //         mesh1.position.y = 0;
-            //         mesh1.position.z = Math.pow(-1,parseInt((j)/2)) * Math.pow(limit/2, (j)%2) * Math.pow(i,(j+1)%2);
-            //         mesh1.updateMatrix();
-            //         mesh1.matrixAutoUpdate = false;
-            //         scene.add( mesh1 );    
-            //     }
-            // }
-            
             return scene;
         }
         
@@ -121,9 +130,9 @@ function SceneManager(canvas) {
         }
         
         
-        function createSceneSubjects(scene,camera) {
+        function createSceneSubjects(scene,camera,mesh) {
             const sceneSubjects = [
-                new Car(scene,camera)
+                new Car(scene,camera,mesh)
             ];
             
             return sceneSubjects;
