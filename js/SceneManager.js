@@ -22,7 +22,7 @@ function SceneManager(canvas) {
         var light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
         scene.add( light );
 
-
+        var loader = new THREE.GLTFLoader();
         // cones stuff
         var geometry = new THREE.CylinderBufferGeometry( 0, 1, 3, 4, 1 );
         var material = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } );
